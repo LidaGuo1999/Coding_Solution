@@ -20,13 +20,14 @@ class AutoTest:
 
         flag = 1
         print('Begin testing.')
+        cur = 0
         try:
             for i in range(0, len(cases)):
+                cur = i
                 params = []
                 for j in range(self.paramNum):
                     params.append(cases[i][keyNames[0][j]])
                 rtn = getattr(self.solution, self.funcName)(*params)
-
                 try:
                     assert rtn == answers[i][keyNames[1]], self.tab+'case'+str(i+1)+' failed.'
                 except AssertionError as ae:
@@ -34,7 +35,7 @@ class AutoTest:
                     flag = 0
 
         except Exception as e:
-            print(e)
+            print(self.tab+'case'+str(cur+1)+' error:', e)
             flag = 0
 
         if flag == 1: print(self.tab+'All passed.')
